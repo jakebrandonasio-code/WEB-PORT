@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jake Brandon C. Asio — Web Developer &amp; UI/UX Designer Portfolio</title>
+<meta name="description" content="Personal portfolio and project showcase of Jake Brandon C. Asio — Web Developer & Designer.">
+
+<link rel="preconnect" href="h ttps://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --paper: #efeee7;        /* main paper background */
+    --paper-alt: #e6e2d4;    /* tab / binder spine background */
+    --ink: #1c1d1a;          /* main high-contrast text & outlin
+    --accent-warm: #b8712a;  /* secondary accent amber/warm */
+    --rule: #d1cdbd;         /* hairline paper rules */
+    --card: #f7f6f1;         /* elevated paper card backings */
+
+    --font-display: "Fraunces", Georgia, serif;
+    --font-body: "Inter", -apple-system, sans-serif;
+    --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+    --spine-width: 250px;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+  }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-body);
+    line-height: 1.55;
+  }
+
+  a { color: var(--accent); }
+  a:focus-visible, button:focus-visible, .tab:focus-visible, .btn-3d:focus-visible {
+    outline: 2.5px solid var(--accent-warm);
+    outline-offset: 3px;
+  }
+
+  .btn-3d {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--ink);
+    background: #fdfbf7;
+    border: 2px solid var(--ink);
+    border-radius: 6px;
+    padding: 0.65rem 1.15rem;
+    box-shadow: 0 4px 0 0 var(--ink);
+    transition: transform 0.1s ease, box-shadow 0.1s ease, background-color 0.1s ease;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .btn-3d:hover {
+    background: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 0 var(--ink);
+  }
+
+  .btn-3d:active {
+    transform: translateY(4px);
+    box-shadow: 0 0 0 0 var(--ink);
+  }
+
+  .btn-3d-primary {
+    background: var(--accent);
+    color: #ffffff;
+  }
+  .btn-3d-primary:hover {
+    background: #255848;
+    color: #ffffff;
+  }
+
+  .btn-3d-warm {
+    background: var(--accent-warm);
+    color: #ffffff;
+  }
+  .btn-3d-warm:hover {
+    background: #9d5f22;
+    color: #ffffff;
+  }
+
+  .skip-link {
+    position: absolute; left: -999px; top: 0;
+    background: var(--ink); color: var(--paper);
+    padding: 0.75rem 1.25rem; z-index: 100;
+    font-family: var(--font-mono); font-size: 0.85rem;
+  }
+  .skip-link:focus { left: 1rem; top: 1rem; }
+
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 600; line-height: 1.1; margin: 0; }
+
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent-warm);
+    display: block;
+    margin-bottom: 0.6rem;
+  }
+
+  .layout {
+    display: grid;
+    grid-template-columns: var(--spine-width) 1fr;
+    min-height: 100vh;
+  }
+
+  .spine {
+    background: var(--paper-alt);
+    border-right: 2px solid var(--rule);
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem 0;
+    z-index: 10;
+  }
+
+  .rings {
+    position: absolute;
+    left: 14px;
+    top: 0;
+    bottom: 0;
+    width: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    pointer-events: none;
+  }
+  .ring {
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    background: var(--paper);
+    border: 2px solid var(--accent-warm);
+    box-shadow: inset 2px 2px 3px rgba(0,0,0,0.25);
+  }
+
+  .spine-id {
+    padding: 0 1.25rem 1.25rem 2.8rem;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  /* 3D Framed Profile Picture */
+  .avatar-container {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    margin-bottom: 0.85rem;
+    border-radius: 50%;
+    background: #ffffff;
+    padding: 3px;
+    border: 2px solid var(--ink);
+    box-shadow: 0 4px 0 0 var(--ink);
+    transition: transform 0.2s ease;
+  }
+  .avatar-container:hover {
+    transform: rotate(-3deg) scale(1.03);
+  }
+  .avatar-img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .spine-id .name {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 600;
+    display: block;
+    line-height: 1.2;
+  }
+  .spine-id .role {
+    font-family: var(--font-mono);
+    font-size: 0.73rem;
+    color: var(--ink-soft);
+    margin-top: 0.25rem;
+  }
+
+  nav.index { 
+    padding-left: 2.8rem; 
+    padding-right: 0.8rem; 
+    display: flex; 
+    flex-direction: column; 
+    gap: 0.55rem; 
+  }
+
+  .tab {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--ink);
+    text-decoration: none;
+    padding: 0.55rem 0.75rem;
+    background: var(--card);
+    border: 1.5px solid var(--ink);
+    border-radius: 5px;
+    box-shadow: 0 3px 0 0 var(--ink);
+    display: flex;
+    gap: 0.6rem;
+    transition: transform 0.1s ease, box-shadow 0.1s ease, background 0.1s ease;
+  }
+
+  .tab:hover { 
+    background: #ffffff; 
+    transform: translateY(-2px);
+    box-shadow: 0 5px 0 0 var(--ink);
+  }
+
+  .tab:active {
+    transform: translateY(3px);
+    box-shadow: 0 0 0 0 var(--ink);
+  }
+
+  .tab .code { color: var(--accent-warm); font-weight: 600; }
+
+  .spine-footer {
+    margin-top: auto;
+    padding: 1.25rem 1.25rem 0 2.8rem;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--ink-soft);
+  }
+
+  @media (max-width: 780px) {
+    .layout { grid-template-columns: 1fr; }
+    .spine {
+      position: static; height: auto; flex-direction: row;
+      align-items: center; padding: 1rem; overflow-x: auto;
+    }
+    .rings { display: none; }
+    .spine-id { 
+      border-bottom: none; 
+      border-right: 1px solid var(--rule); 
+      padding: 0 1rem 0 0.5rem; 
+      margin: 0; 
+      flex-direction: row; 
+      align-items: center; 
+      gap: 0.75rem; 
+      flex-shrink: 0; 
+    }
+    .avatar-container { width: 50px; height: 50px; margin-bottom: 0; box-shadow: 0 2px 0 0 var(--ink); }
+    nav.index { flex-direction: row; padding: 0 0 0 0.75rem; }
+    .spine-footer { display: none; }
+  }
+
+  main { min-width: 0; }
+
+  section {
+    padding: 4.5rem 4rem;
+    border-bottom: 1px solid var(--rule);
+    max-width: 900px;
+  }
+  @media (max-width: 780px) { section { padding: 3rem 1.5rem; } }
+
+  .hero h1 { font-size: clamp(2.2rem, 5vw, 3.4rem); }
+  .hero .tagline {
+    font-size: 1.15rem;
+    color: var(--ink-soft);
+    max-width: 44ch;
+    margin-top: 1rem;
+  }
+  .hero-links {
+    display: flex; gap: 0.85rem; flex-wrap: wrap;
+    margin-top: 2rem;
+  }
+
+  .about p { max-width: 65ch; color: var(--ink-soft); }
+  .about p + p { margin-top: 1rem; }
+
+  .skill-groups { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-top: 2rem; }
+  .skill-group h3 { font-size: 1rem; font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent); margin-bottom: 0.75rem; }
+  .skill-group ul { list-style: none; padding: 0; margin: 0; color: var(--ink-soft); }
+  .skill-group li { padding: 0.35rem 0; border-bottom: 1px dotted var(--rule); }
+
+  .project-grid { display: grid; gap: 1.75rem; margin-top: 2rem; }
+  .project-card {
+    background: var(--card);
+    border: 2px solid var(--ink);
+    border-radius: 8px;
+    padding: 1.75rem;
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 1.5rem;
+    box-shadow: 0 4px 0 0 var(--rule);
+  }
+  @media (max-width: 640px) { .project-card { grid-template-columns: 1fr; } }
+  .project-card img {
+    width: 100%; height: 100%; min-height: 140px;
+    object-fit: cover; border-radius: 6px;
+    border: 1.5px solid var(--ink);
+  }
+  .project-card h3 { font-size: 1.25rem; margin-bottom: 0.4rem; }
+  .project-card .desc { color: var(--ink-soft); font-size: 0.95rem; }
+  
+  .tags { display: flex; gap: 0.5rem; flex-wrap: wrap; margin: 1rem 0; }
+  .tag {
+    font-family: var(--font-mono); font-size: 0.7rem; font-weight: 500;
+    background: var(--paper-alt); color: var(--ink);
+    padding: 0.2rem 0.55rem; border-radius: 4px;
+    border: 1px solid var(--ink);
+    box-shadow: 0 2px 0 0 var(--ink);
+  }
+  .project-links { display: flex; gap: 0.75rem; margin-top: 0.5rem; }
+
+  .timeline-columns {
+    margin-top: 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+  }
+  @media (max-width: 640px) { .timeline-columns { grid-template-columns: 1fr; gap: 2.5rem; } }
+  .timeline-column h3.col-title {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--accent);
+    margin-bottom: 1.25rem;
+  }
+  .timeline { border-left: 2px solid var(--rule); padding-left: 1.75rem; display: flex; flex-direction: column; gap: 2rem; }
+  .timeline-item { position: relative; }
+  .timeline-item::before {
+    content: ""; position: absolute; left: -2.28rem; top: 0.35rem;
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--accent-warm);
+    border: 1.5px solid var(--ink);
+    box-shadow: 0 1.5px 0 0 var(--ink);
+  }
+  .timeline-item .when { font-family: var(--font-mono); font-size: 0.78rem; color: var(--ink-soft); }
+  .timeline-item h3 { font-size: 1.1rem; margin-top: 0.25rem; }
+  .timeline-item .where { color: var(--accent); font-size: 0.92rem; margin-bottom: 0.4rem; }
+  .timeline-item p { color: var(--ink-soft); font-size: 0.92rem; max-width: 60ch; }
+
+  .contact { border-bottom: none; }
+  .contact p { color: var(--ink-soft); max-width: 50ch; }
+  .contact-methods { margin-top: 1.75rem; display: flex; flex-direction: row; flex-wrap: wrap; gap: 0.75rem; }
+  footer.sign-off { padding: 2rem 4rem 3rem; font-family: var(--font-mono); font-size: 0.75rem; color: var(--ink-soft); }
+  @media (max-width: 780px) { footer.sign-off { padding: 1.5rem; } }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<div class="layout">
+
+  <header class="spine">
+    <div class="rings" aria-hidden="true">
+      <span class="ring"></span><span class="ring"></span><span class="ring"></span>
+      <span class="ring"></span><span class="ring"></span><span class="ring"></span>
+    </div>
+
+    <div class="spine-id">
+      <!-- Profile Picture Container -->
+      <div class="avatar-container">
+        <img 
+          class="avatar-img" 
+          src="c:\Users\JONATHAN C. ASIO\CrossDevice\Infinix NOTE 50 Pro\storage\DCIM\Camera\IMG_20260829_232324_533.jpg"
+          alt="Jake Brandon C. Asio Profile Photo"
+          onerror="this.onerror=null; this.src='https://placehold.co/150x150/e6e2d4/1c1d1a?text=JB';"
+        />
+      </div>
+      <div>
+        <span class="name">Jake Brandon C. Asio</span>
+        <span class="role">Developer &amp; Designer</span>
+      </div>
+    </div>
+
+    <nav class="index" aria-label="Section navigation">
+      <a class="tab" href="#about"><span class="code">01</span> About</a>
+      <a class="tab" href="#skills"><span class="code">02</span> Skills</a>
+      <a class="tab" href="#projects"><span class="code">03</span> Projects</a>
+      <a class="tab" href="#experience"><span class="code">04</span> Experience</a>
+      <a class="tab" href="#contact"><span class="code">05</span> Contact</a>
+    </nav>
+
+    <div class="spine-footer">
+      Last updated 2026
+    </div>
+  </header>
+
+  <main id="main">
+
+    <section class="hero" id="hero">
+      <span class="eyebrow">Portfolio — Index 00</span>
+      <h1>Jake Brandon C. Asio</h1>
+      <p class="tagline">Developer &amp; Designer crafting thoughtful digital experiences, responsive interfaces, and practical software solutions.</p>
+      <div class="hero-links">
+        <a href="mailto:jakebrandonasio@example.com" class="btn-3d btn-3d-primary">Email Me</a>
+        <a href="#projects" class="btn-3d">View Projects</a>
+        <a href="https://github.com/jakebrandonasio-code" target="_blank" rel="noopener" class="btn-3d">GitHub</a>
+        <a href="https://www.facebook.com/share/19JXCi4aDv/" target="_blank" rel="noopener" class="btn-3d">Facebook</a>
+      </div>
+    </section>
+
+    <section id="about">
+      <span class="eyebrow">Index 01</span>
+      <h2>About</h2>
+      <p>Hello! I'm Jake Brandon C. Asio. I focus on creating clean, intuitive, and accessible web experiences. I love bridging technical problem solving with aesthetic UI design.</p>
+      <p>Whether building full-stack applications or designing user flows, I prioritize performance, semantic code, and human-centric usability. I am eager to collaborate on technical projects and innovation opportunities.</p>
+    </section>
+
+    <section id="skills">
+      <span class="eyebrow">Index 02</span>
+      <h2>Skills</h2>
+      <div class="skill-groups">
+
+        <div class="skill-group">
+          <h3>Languages</h3>
+          <ul>
+            <li>JavaScript (ES6+)</li>
+            <li>TypeScript</li>
+            <li>HTML5 / CSS3</li>
+            <li>Python</li>
+          </ul>
+        </div>
+
+        <div class="skill-group">
+          <h3>Frameworks &amp; Tools</h3>
+          <ul>
+            <li>React / Next.js</li>
+            <li>Node.js / Express</li>
+            <li>Tailwind CSS</li>
+            <li>Git &amp; GitHub</li>
+          </ul>
+        </div>
+
+        <div class="skill-group">
+          <h3>Design &amp; Workflow</h3>
+          <ul>
+            <li>UI/UX Wireframing</li>
+            <li>Responsive Design</li>
+            <li>REST API Integration</li>
+            <li>Database Design (SQL/NoSQL)</li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="projects">
+      <span class="eyebrow">Index 03</span>
+      <h2>Projects</h2>
+      <div class="project-grid">
+
+        <article class="project-card">
+          <img 
+            src="c:\Users\JONATHAN C. ASIO\CrossDevice\Infinix NOTE 50 Pro\storage\Pictures\file_00000000b17481fabbb5a459ef74002e.png"
+            onerror="this.onerror=null; this.src='https://placehold.co/400x250/f7f6f1/1c1d1a?text=Project+One';"
+          />
+          <div>
+            <h3>CREATING QGIS MAPPING</h3>
+            <p class="desc">A QGIS mapping project showing buildings, roads, and campus locations at Eastern Samar State University.</p>
+            <div class="tags">
+              <span class="tag">React</span>
+              <span class="tag">Node.js</span>
+              <span class="tag">Tailwind</span>
+            </div>
+            <div class="project-links">
+              <a href="#" class="btn-3d btn-3d-warm">Live Demo</a>
+              <a href="#" class="btn-3d">Source Code</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="project-card">
+          <img 
+            src="c:\Users\JONATHAN C. ASIO\Pictures\Screenshots\Screenshot 2026-09-23 233401.png" 
+            alt="Analytics data visualization preview"
+            onerror="this.onerror=null; this.src='https://placehold.co/400x250/f7f6f1/1c1d1a?text=Project+Two';"
+          />
+          <div>
+            <h3>Personal Web Portfolio</h3>
+            <p class="desc">A designed with a clean, retro-minimalist style featuring side navigation and direct links to his work and social profiles.</p>
+            <div class="tags">
+              <span class="tag">TypeScript</span>
+              <span class="tag">Chart.js</span>
+              <span class="tag">REST API</span>
+            </div>
+            <div class="project-links">
+              <a href="#" class="btn-3d btn-3d-warm">Live Demo</a>
+              <a href="#" class="btn-3d">Source Code</a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <section id="experience">
+      <span class="eyebrow">Index 04</span>
+      <h2>Experience &amp; Education</h2>
+      <div class="timeline-columns">
+
+        <!-- LEFT COLUMN: EXPERIENCE -->
+        <div class="timeline-column">
+          <h3 class="col-title">Experience</h3>
+          <div class="timeline">
+
+            <div class="timeline-item">
+              <span class="when">2025 — Present</span>
+              <h3>Frontend / Software Developer</h3>
+              <div class="where">Development Studio / Projects</div>
+              <p>Designing modern user interfaces, writing clean code components, and implementing responsive layouts.</p>
+            </div>
+
+            <div class="timeline-item">
+              <span class="when">2024 — 2025</span>
+              <h3>UI/UX &amp; Web Intern</h3>
+              <div class="where">Tech Solutions Lab</div>
+              <p>Assisted in wireframing client interfaces and refactoring frontend stylesheets for web applications.</p>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- RIGHT COLUMN: EDUCATION -->
+        <div class="timeline-column">
+          <h3 class="col-title">Education</h3>
+          <div class="timeline">
+
+            <div class="timeline-item">
+              <span class="when">2022 — Present</span>
+              <h3>Bachelor of Science in Information Technology</h3>
+              <div class="where">University College</div>
+              <p>Coursework focusing on Web Development, Software Engineering, Database Systems, and Network Administration.</p>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="contact" id="contact">
+      <span class="eyebrow">Index 05</span>
+      <h2>Get in touch</h2>
+      <p>I am currently open to internships, freelance projects, and developer opportunities. Feel free to reach out anytime!</p>
+      <div class="contact-methods">
+        <a href="mailto:jakebrandonasio@gmail.com" class="btn-3d btn-3d-primary">jakebrandonasio@gmail.com</a>
+        <a href="https://github.com/jakebrandonasio-code" target="_blank" rel="noopener" class="btn-3d">GitHub Profile</a>
+        
+    </section>
+
+    <footer class="sign-off">
+      © 2026 Jake Brandon C. Asio. All rights reserved.
+    </footer>
+
+  </main>
+</div>
+
+</body>
+</html>
